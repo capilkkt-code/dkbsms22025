@@ -6,7 +6,6 @@
   <title>Dashboard Penduduk Kabupaten Kepulauan Tanimbar 2025</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="/_sdk/element_sdk.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <style>
     * { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -503,7 +502,6 @@
     }
   </style>
   <style>body { box-sizing: border-box; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="h-full gradient-bg text-white scrollbar-custom overflow-auto">
   <div class="min-h-full w-full flex flex-col pb-20"><!-- Header Minimal -->
@@ -1518,7 +1516,9 @@
     const chartColors = ['rgba(99, 102, 241, 0.8)', 'rgba(139, 92, 246, 0.8)', 'rgba(168, 85, 247, 0.8)', 'rgba(236, 72, 153, 0.8)'];
 
     function downloadFromDrive() {
-      window.open('https://drive.google.com/uc?export=download&id=YOUR_FILE_ID', '_blank');
+      // Ganti URL ini dengan link file Anda yang sebenarnya jika ada
+      alert("Fungsi download demo. Dalam aplikasi nyata, ini akan mengunduh file.");
+      // window.open('https://drive.google.com/uc?export=download&id=YOUR_FILE_ID', '_blank');
     }
 
     function openContactForm() {
@@ -1539,7 +1539,7 @@
       const institution = document.getElementById('contactInstitution').value;
       const message = document.getElementById('contactMessage').value;
       
-      const whatsappNumber = '628XXXXXXXXXX';
+      const whatsappNumber = '6282239520402'; // Ganti dengan nomor WA admin
       const text = `Tanggal: ${date}\nNama: ${name}\nInstansi: ${institution}\nPesan: ${message}`;
       const encodedText = encodeURIComponent(text);
       
@@ -1599,7 +1599,34 @@
             { label: 'Perempuan', data: pyramidFemale, backgroundColor: 'rgba(236, 72, 153, 0.8)', borderRadius: 4 }
           ]
         },
-        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
+        options: { 
+            responsive: true, 
+            maintainAspectRatio: false, 
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    ticks: {
+                        callback: function(value) {
+                            return Math.abs(value);
+                        }
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            label += Math.abs(context.raw);
+                            return label;
+                        }
+                    }
+                }
+            }
+        }
       });
 
       const ctx5 = document.getElementById('ageGroupChart').getContext('2d');
@@ -1816,6 +1843,7 @@
       document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
       document.getElementById('tab-' + tabName).classList.add('active');
       event.target.classList.add('active');
+      // Resize charts after tab switch to ensure they render correctly
       setTimeout(() => { Object.values(charts).forEach(chart => chart?.resize()); }, 100);
     }
 
@@ -1824,10 +1852,12 @@
       document.querySelectorAll('.subtab-button').forEach(el => el.classList.remove('active'));
       document.getElementById('subtab-' + subtabName).classList.add('active');
       event.target.classList.add('active');
+      // Resize charts after subtab switch
       setTimeout(() => { Object.values(charts).forEach(chart => chart?.resize()); }, 100);
     }
 
-    initCharts();
+    // Initialize charts when DOM is ready
+    document.addEventListener('DOMContentLoaded', initCharts);
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cd225a0962e3cf7',t:'MTc3MDk2Mjg2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
