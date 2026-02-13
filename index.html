@@ -369,6 +369,30 @@
       color: #94a3b8;
     }
 
+    .interpretation-box {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.08) 100%);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 0.75rem;
+    }
+
+    .interpretation-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #a5b4fc;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .interpretation-text {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
     @media (max-width: 640px) {
       .table-row:hover {
         background: rgba(99, 102, 241, 0.08);
@@ -390,7 +414,7 @@
         </svg>
        </div>
       </div>
-      <h1 id="dashboard-title" class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold glow-text truncate">Dashboard Penduduk Tanimbar</h1>
+      <h1 id="dashboard-title" class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold glow-text truncate">Dashboard Data Penduduk Tanimbar</h1>
      </div>
     </div>
    </header><!-- Main Content -->
@@ -492,6 +516,14 @@
        <div class="h-64 sm:h-72 md:h-80">
         <canvas id="populationByDistrictChart"></canvas>
        </div>
+       <div class="interpretation-box">
+        <div class="interpretation-title">
+         📊 Interpretasi Data
+        </div>
+        <div class="interpretation-text">
+         Tanimbar Selatan mendominasi dengan 40,253 penduduk (29.98%), menjadi pusat ekonomi dan administrasi. Distribusi gender seimbang dengan rasio 1.005 (L:P), menunjukkan struktur populasi stabil. Konsentrasi tertinggi di pusat, sementara Molu Maru hanya 3.14%. Hal ini merefleksikan pola urbanisasi di kepulauan Tanimbar.
+        </div>
+       </div>
       </div>
       <div class="chart-container rounded-2xl p-4 sm:p-5 md:p-6">
        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 sm:mb-4 gap-2">
@@ -502,6 +534,14 @@
        </div>
        <div class="h-64 sm:h-72 md:h-80">
         <canvas id="pyramidChart"></canvas>
+       </div>
+       <div class="interpretation-box">
+        <div class="interpretation-title">
+         📊 Interpretasi Data
+        </div>
+        <div class="interpretation-text">
+         Piramida penduduk menunjukkan bentuk ekspansif dengan basis luas di kelompok usia muda (0-14 tahun). Kelompok 15-24 tahun puncaknya, menunjukkan bonus demografi. Persentase lansia (&gt;65) masih kecil (4.8%), namun terus meningkat. Struktur ini mengindikasikan populasi muda dengan potensi pertumbuhan.
+        </div>
        </div>
       </div>
      </section>
@@ -614,6 +654,14 @@
        <div class="h-64 sm:h-72 md:h-80">
         <canvas id="maritalStatusChart"></canvas>
        </div>
+       <div class="interpretation-box">
+        <div class="interpretation-title">
+         💡 Interpretasi Data
+        </div>
+        <div class="interpretation-text">
+         Lebih dari setengah populasi (54.76%) masih belum kawin, mencerminkan tingginya presentase anak-anak dan remaja. Kelompok kawin sebesar 40.98% menunjukkan prevalensi perkawinan yang signifikan. Tingkat perceraian hidup rendah (0.23%), namun cerai mati mencapai 4.05%, umumnya karena mortalitas di kalangan dewasa tua.
+        </div>
+       </div>
       </div>
       <div class="chart-container rounded-2xl p-4 sm:p-5 md:p-6">
        <div class="mb-3 sm:mb-4">
@@ -622,6 +670,14 @@
        </div>
        <div class="h-64 sm:h-72 md:h-80">
         <canvas id="maritalGenderChart"></canvas>
+       </div>
+       <div class="interpretation-box">
+        <div class="interpretation-title">
+         💡 Interpretasi Data
+        </div>
+        <div class="interpretation-text">
+         Perempuan cerai mati lebih banyak (3,998) dibanding laki-laki (1,448), mengindikasikan harapan hidup perempuan lebih tinggi. Distribusi belum kawin relatif seimbang antara gender, menunjukkan pola perkawinan yang inklusif. Gender gap minimal di status kawin menunjukkan stabilitas pernikahan di wilayah.
+        </div>
        </div>
       </div>
      </section>
@@ -692,6 +748,14 @@
        <div class="h-64 sm:h-72 md:h-80">
         <canvas id="educationChart"></canvas>
        </div>
+       <div class="interpretation-box">
+        <div class="interpretation-title">
+         📚 Interpretasi Data
+        </div>
+        <div class="interpretation-text">
+         Pendidikan SMA mendominasi dengan 29.32%, menunjukkan aksesibilitas pendidikan menengah atas yang baik. Namun, 30.55% belum tamat SD atau tidak sekolah, mengindikasikan peluang dropout signifikan. Pendidikan tinggi masih rendah (5.59% S1-S2), membutuhkan investasi lebih besar dalam pendidikan lanjut.
+        </div>
+       </div>
       </div>
       <div class="chart-container rounded-2xl p-4 sm:p-5 md:p-6">
        <div class="mb-3 sm:mb-4">
@@ -700,6 +764,14 @@
        </div>
        <div class="h-64 sm:h-72 md:h-80">
         <canvas id="educationGenderChart"></canvas>
+       </div>
+       <div class="interpretation-box">
+        <div class="interpretation-title">
+         📚 Interpretasi Data
+        </div>
+        <div class="interpretation-text">
+         Partisipasi perempuan di jenjang SD lebih tinggi (11,795 vs 11,237 laki-laki). Namun laki-laki mendominasi di jenjang SMA (20,657 vs 18,739). Perempuan lebih banyak di jenjang perguruan tinggi (S1-S2), mengindikasikan kesadaran orang tua terhadap pendidikan perempuan meningkat. Gender parity dalam pendidikan menunjukkan kemajuan inklusi.
+        </div>
        </div>
       </div>
      </section>
@@ -797,6 +869,14 @@
        </div>
        <div class="h-64 sm:h-72 md:h-80">
         <canvas id="employmentChart"></canvas>
+       </div>
+       <div class="interpretation-box">
+        <div class="interpretation-title">
+         💼 Interpretasi Data
+        </div>
+        <div class="interpretation-text">
+         Pertanian (terutama petani/pekebun) mendominasi dengan 32.54%, mencerminkan ekonomi agraris Tanimbar. Pengangguran + belum kerja mencapai 6.69%, membutuhkan intervensi pengembangan keterampilan. Sektor informal (wiraswasta, pedagang) menyumbang signifikan, menunjukkan keterbatasan lapangan kerja formal yang memerlukan diversifikasi ekonomi.
+        </div>
        </div>
       </div>
       <div class="space-y-3 sm:space-y-4">
@@ -910,6 +990,14 @@
        <div class="h-64 sm:h-72 md:h-80">
         <canvas id="religionChart"></canvas>
        </div>
+       <div class="interpretation-box">
+        <div class="interpretation-title">
+         🙏 Interpretasi Data
+        </div>
+        <div class="interpretation-text">
+         Kristen mendominasi dengan 61.32%, mencerminkan sejarah misionaris di wilayah. Katholik menyusul 32.92%, menunjukkan pluralisme agama Kristen di Tanimbar. Islam 5.72%, Hindu dan Buddha sangat minimal. Struktur religius ini mencerminkan identitas budaya lokal yang kuat dengan toleransi antaragama yang tinggi.
+        </div>
+       </div>
       </div>
       <div class="space-y-3">
        <div class="chart-container rounded-2xl p-4 sm:p-5">
@@ -991,6 +1079,14 @@
        </div>
        <div class="h-64 sm:h-72 md:h-80">
         <canvas id="disabilityChart"></canvas>
+       </div>
+       <div class="interpretation-box">
+        <div class="interpretation-title">
+         ♿ Interpretasi Data
+        </div>
+        <div class="interpretation-text">
+         Disabilitas fisik mendominasi dengan 47.87% (347 orang), menunjukkan kebutuhan layanan rehabilitasi fisik. Disabilitas ganda (fisik+mental) hanya 33 orang (4.55%), namun memerlukan perhatian khusus. Total 725 penyandang disabilitas (0.54% populasi) masih membutuhkan penguatan akses dan inklusi sosial di masyarakat Tanimbar.
+        </div>
        </div>
       </div>
       <div class="space-y-3">
@@ -1084,6 +1180,14 @@
        <div class="h-64 sm:h-72 md:h-80">
         <canvas id="househeadMaritalChart"></canvas>
        </div>
+       <div class="interpretation-box">
+        <div class="interpretation-title">
+         👨‍👩‍👧‍👦 Interpretasi Data
+        </div>
+        <div class="interpretation-text">
+         Mayoritas kepala KK (77.68%) sudah kawin, mencerminkan stabilitas struktural keluarga. Kepala KK belum kawin 7.35%, umumnya dari kalangan muda yang baru membentuk rumah tangga. Cerai mati 7.87%, terutama perempuan (3,886), menunjukkan beban pengasuhan pada ibu tunggal yang perlu dukungan sosial.
+        </div>
+       </div>
       </div>
       <div class="chart-container rounded-2xl p-4 sm:p-5 md:p-6">
        <div class="mb-3 sm:mb-4">
@@ -1092,6 +1196,14 @@
        </div>
        <div class="h-64 sm:h-72 md:h-80">
         <canvas id="househeadJobChart"></canvas>
+       </div>
+       <div class="interpretation-box">
+        <div class="interpretation-title">
+         👨‍👩‍👧‍👦 Interpretasi Data
+        </div>
+        <div class="interpretation-text">
+         Pertanian mendominasi kepala KK (47.39%), menunjukkan mata pencaharian utama keluarga. Wiraswasta (12.27%) dan aparatur (6.42%) signifikan. Belum/tidak kerja mencapai 13.04%, yang sering dijumpai pada kepala KK lansia atau tidak mampu bekerja. Diversifikasi ekonomi keluarga masih rendah.
+        </div>
        </div>
       </div>
      </section>
@@ -1102,6 +1214,14 @@
       </div>
       <div class="h-80 md:h-96">
        <canvas id="househeadDistrictChart"></canvas>
+      </div>
+      <div class="interpretation-box mt-4">
+       <div class="interpretation-title">
+        👨‍👩‍👧‍👦 Interpretasi Data
+       </div>
+       <div class="interpretation-text">
+        Laki-laki mendominasi posisi kepala KK (77.98%), namun perempuan sebagai kepala KK mencapai 22.02%. Tanimbar Selatan memiliki kepala KK perempuan terbanyak (2,787), mencerminkan beban ganda pada perempuan. Peningkatan kepala KK perempuan menunjukkan perubahan struktur keluarga dan perlunya kebijakan inklusif gender dalam pemberdayaan keluarga.
+       </div>
       </div>
      </section>
      <section class="chart-container rounded-2xl p-3 sm:p-4 md:p-6 overflow-x-auto">
@@ -1210,6 +1330,14 @@
        </div>
        <div class="h-64 sm:h-72 md:h-80">
         <canvas id="vitalTrendChart"></canvas>
+       </div>
+       <div class="interpretation-box">
+        <div class="interpretation-title">
+         📈 Interpretasi Data
+        </div>
+        <div class="interpretation-text">
+         Total kelahiran (728) hampir seimbang dengan kematian (726), menghasilkan saldo positif minimal 2 orang. Saldo netral ini mencerminkan tahap transisi demografis dari pertumbuhan tinggi ke pertumbuhan rendah. Kebutuhan akan peningkatan kualitas kesehatan maternal dan neonatal tetap penting untuk menurunkan angka kematian.
+        </div>
        </div>
       </div>
       <div class="space-y-3 sm:space-y-4">
@@ -1337,6 +1465,14 @@
        </div>
        <div class="h-64 sm:h-72 md:h-80">
         <canvas id="migrationChart"></canvas>
+       </div>
+       <div class="interpretation-box">
+        <div class="interpretation-title">
+         🌍 Interpretasi Data
+        </div>
+        <div class="interpretation-text">
+         Migrasi keluar (8,033) signifikan dibanding masuk (4,464), menghasilkan saldo negatif -3,569 orang (-2.66% pertahun). Fenomena ini mengindikasikan brain drain dan economic migration mencari peluang kerja. Daerah terpencil seperti Fordata kehilangan 5.70% populasi, memerlukan strategi pembangunan ekonomi lokal yang inklusif.
+        </div>
        </div>
       </div>
       <div class="space-y-3 sm:space-y-4">
@@ -1468,6 +1604,14 @@
         <div class="h-48 sm:h-56">
          <canvas id="identityKKChart"></canvas>
         </div>
+        <div class="interpretation-box">
+         <div class="interpretation-title">
+          🆔 Interpretasi
+         </div>
+         <div class="interpretation-text">
+          Cakupan KK mencapai 95.10%, menunjukkan keberhasilan administrasi kependudukan. Masih ada 1,981 keluarga tanpa KK (4.90%), terutama di daerah terpencil. Akselerasi penerbitan KK untuk sisanya dapat meningkatkan akses layanan publik dan perlindungan sosial.
+         </div>
+        </div>
        </div>
        <div class="chart-container rounded-2xl p-4 sm:p-5">
         <div class="mb-3 sm:mb-4">
@@ -1476,6 +1620,14 @@
         </div>
         <div class="h-48 sm:h-56">
          <canvas id="identityKTPChart"></canvas>
+        </div>
+        <div class="interpretation-box">
+         <div class="interpretation-title">
+          🆔 Interpretasi
+         </div>
+         <div class="interpretation-text">
+          KTP-e dimiliki 92.96% dari usia 17+ tahun. Sisa 6,461 orang (7.04%) yang belum memiliki umumnya karena kehilangan identitas, usia, atau migrasi. Penguatan sistem pencegahan hilangnya KTP-e diperlukan untuk melindungi hak identitas setiap warga.
+         </div>
         </div>
        </div>
       </section>
@@ -1532,17 +1684,12 @@
           <div class="flex justify-between p-2 bg-orange-500/10 rounded"><span>Belum</span> <span class="font-bold text-orange-400">32,566</span>
           </div>
          </div>
-        </div>
-        <div class="chart-container rounded-2xl p-3 sm:p-4">
-         <div class="mb-2 sm:mb-3">
-          <h4 class="stat-header-title text-sm">Top Kecamatan</h4>
-         </div>
-         <div class="space-y-1 text-xs">
-          <div class="flex justify-between p-2 bg-green-500/10 rounded"><span>Kormomolin</span> <span class="font-bold text-green-400">50.38%</span>
+         <div class="interpretation-box">
+          <div class="interpretation-title text-xs">
+           💡 Interpretasi
           </div>
-          <div class="flex justify-between p-2 bg-blue-500/10 rounded"><span>Wer Tamrian</span> <span class="font-bold text-blue-400">32.70%</span>
-          </div>
-          <div class="flex justify-between p-2 bg-indigo-500/10 rounded"><span>Fordata</span> <span class="font-bold text-indigo-400">29.13%</span>
+          <div class="interpretation-text text-xs">
+           Cakupan KIA hanya 23.51%, jauh di bawah target 100%. Diperlukan kampanye masif penerbitan KIA untuk meningkatkan pencatatan kesehatan ibu dan anak di Tanimbar.
           </div>
          </div>
         </div>
@@ -1558,6 +1705,14 @@
         <div class="h-40">
          <canvas id="birthCert05Chart"></canvas>
         </div>
+        <div class="interpretation-box">
+         <div class="interpretation-title text-xs">
+          📋 Interpretasi
+         </div>
+         <div class="interpretation-text text-xs">
+          Cakupan akta kelahiran usia 0-5 tahun mencapai 97.37%, menunjukkan komitmen pencatatan sejak dini.
+         </div>
+        </div>
        </div>
        <div class="chart-container rounded-2xl p-3 sm:p-4">
         <div class="mb-2">
@@ -1566,6 +1721,14 @@
         <div class="h-40">
          <canvas id="birthCert017Chart"></canvas>
         </div>
+        <div class="interpretation-box">
+         <div class="interpretation-title text-xs">
+          📋 Interpretasi
+         </div>
+         <div class="interpretation-text text-xs">
+          Cakupan akta usia 0-17 tahun 98.84%, melebihi target nasional. Perlindungan hak anak melalui pencatatan sudah tercapai dengan baik di Tanimbar.
+         </div>
+        </div>
        </div>
        <div class="chart-container rounded-2xl p-3 sm:p-4">
         <div class="mb-2">
@@ -1573,6 +1736,14 @@
         </div>
         <div class="h-40">
          <canvas id="birthCertAllChart"></canvas>
+        </div>
+        <div class="interpretation-box">
+         <div class="interpretation-title text-xs">
+          📋 Interpretasi
+         </div>
+         <div class="interpretation-text text-xs">
+          Cakupan akta kelahiran semua usia 60.74%, menunjukkan kesenjangan pada kelompok dewasa yang belum tercatat pada masa lalu.
+         </div>
         </div>
        </div>
       </section>
@@ -1586,6 +1757,14 @@
         </div>
         <div class="h-56 sm:h-64">
          <canvas id="marriageChart"></canvas>
+        </div>
+        <div class="interpretation-box">
+         <div class="interpretation-title">
+          💒 Interpretasi
+         </div>
+         <div class="interpretation-text">
+          Cakupan akta perkawinan 71.40%, menunjukkan masih 15,742 pasangan kawin belum tercatat. Optimalisasi pencatatan perkawinan dapat memperkuat perlindungan hak perempuan dan akses warisan.
+         </div>
         </div>
        </div>
        <div class="space-y-3">
@@ -1987,5 +2166,5 @@
 
     initCharts();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cd1319501c91333',t:'MTc3MDk1Mjg2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cd13b72666ae8a2',t:'MTc3MDk1MzI3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
