@@ -1,0 +1,1301 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Penduduk Kabupaten Kepulauan Tanimbar 2025</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Plus Jakarta Sans', sans-serif; }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    }
+    
+    .card-glass {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(71, 85, 105, 0.3);
+    }
+    
+    .stat-card {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+    
+    .glow-text {
+      text-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+    }
+    
+    .chart-container {
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid rgba(71, 85, 105, 0.3);
+    }
+    
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .scrollbar-custom::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    
+    .scrollbar-custom::-webkit-scrollbar-track {
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 3px;
+    }
+    
+    .scrollbar-custom::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.5);
+      border-radius: 3px;
+    }
+    
+    .table-row:hover {
+      background: rgba(99, 102, 241, 0.1);
+    }
+
+    .tab-button {
+      transition: all 0.3s ease;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .tab-button.active {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    }
+
+    .tab-button:not(.active) {
+      background: rgba(71, 85, 105, 0.3);
+      color: #94a3b8;
+    }
+
+    .tab-button:hover:not(.active) {
+      background: rgba(71, 85, 105, 0.5);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .subtab-button {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .subtab-button.active {
+      background: rgba(99, 102, 241, 0.8);
+      color: white;
+    }
+
+    .subtab-button:not(.active) {
+      background: rgba(71, 85, 105, 0.3);
+      color: #94a3b8;
+    }
+
+    .subtab-content {
+      display: none;
+    }
+
+    .subtab-content.active {
+      display: block;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full gradient-bg text-white scrollbar-custom overflow-auto">
+  <div class="min-h-full w-full"><!-- Header -->
+   <header class="sticky top-0 z-50 card-glass border-b border-slate-700/50">
+    <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
+     <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+       <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center animate-float shadow-lg shadow-indigo-500/30">
+        <svg class="w-7 h-7 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+       </div>
+       <div class="text-center sm:text-left">
+        <h1 id="dashboard-title" class="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent glow-text">Dashboard Data Penduduk</h1>
+        <p id="subtitle-text" class="text-slate-400 text-sm sm:text-base">Kabupaten Kepulauan Tanimbar Tahun 2025</p>
+       </div>
+      </div>
+      <div class="flex items-center gap-3">
+       <div class="hidden md:flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50">
+        <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div><span class="text-sm text-slate-300">Data Lengkap 28 Tabel</span>
+       </div>
+       <div class="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-sm font-medium shadow-lg shadow-indigo-500/30">
+        📊 2025
+       </div>
+      </div>
+     </div>
+    </div>
+   </header><!-- Main Content -->
+   <main class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6"><!-- Summary Cards -->
+    <section class="grid grid-cols-2 lg:grid-cols-5 gap-3 lg:gap-4">
+     <div class="stat-card rounded-2xl p-3 sm:p-4">
+      <div class="flex flex-col gap-2">
+       <div class="text-xs sm:text-sm text-slate-400">
+        Total Penduduk
+       </div>
+       <div class="text-lg sm:text-2xl font-bold text-indigo-400">
+        134,293
+       </div>
+       <div class="text-xs text-emerald-400">
+        +1.46% YoY
+       </div>
+      </div>
+     </div>
+     <div class="stat-card rounded-2xl p-3 sm:p-4">
+      <div class="flex flex-col gap-2">
+       <div class="text-xs sm:text-sm text-slate-400">
+        Akta Kelahiran
+       </div>
+       <div class="text-lg sm:text-2xl font-bold text-cyan-400">
+        60.74%
+       </div>
+       <div class="text-xs text-slate-500">
+        81,570 orang
+       </div>
+      </div>
+     </div>
+     <div class="stat-card rounded-2xl p-3 sm:p-4">
+      <div class="flex flex-col gap-2">
+       <div class="text-xs sm:text-sm text-slate-400">
+        KIA Anak
+       </div>
+       <div class="text-lg sm:text-2xl font-bold text-emerald-400">
+        23.51%
+       </div>
+       <div class="text-xs text-slate-500">
+        10,010 anak
+       </div>
+      </div>
+     </div>
+     <div class="stat-card rounded-2xl p-3 sm:p-4">
+      <div class="flex flex-col gap-2">
+       <div class="text-xs sm:text-sm text-slate-400">
+        Akta Perkawinan
+       </div>
+       <div class="text-lg sm:text-2xl font-bold text-blue-400">
+        71.40%
+       </div>
+       <div class="text-xs text-slate-500">
+        39,295 orang
+       </div>
+      </div>
+     </div>
+     <div class="stat-card rounded-2xl p-3 sm:p-4">
+      <div class="flex flex-col gap-2">
+       <div class="text-xs sm:text-sm text-slate-400">
+        Usia 0-17 Tahun
+       </div>
+       <div class="text-lg sm:text-2xl font-bold text-pink-400">
+        98.84%
+       </div>
+       <div class="text-xs text-slate-500">
+        Akta Kelahiran
+       </div>
+      </div>
+     </div>
+    </section><!-- Tab Navigation -->
+    <div class="flex gap-2 sm:gap-3 overflow-x-auto pb-2 scrollbar-custom"><button class="tab-button active" onclick="switchTab('overview')">📊 Overview</button> <button class="tab-button" onclick="switchTab('marital')">💍 Perkawinan</button> <button class="tab-button" onclick="switchTab('education')">📚 Pendidikan</button> <button class="tab-button" onclick="switchTab('employment')">💼 Pekerjaan</button> <button class="tab-button" onclick="switchTab('religion')">🙏 Agama</button> <button class="tab-button" onclick="switchTab('disability')">♿ Disabilitas</button> <button class="tab-button" onclick="switchTab('househead')">👨‍👩‍👧‍👦 Kepala KK</button> <button class="tab-button" onclick="switchTab('vital')">📈 Vital Stats</button> <button class="tab-button" onclick="switchTab('migration')">🌍 Migrasi</button> <button class="tab-button" onclick="switchTab('documents')">📋 Kepemilikan Dokumen</button>
+    </div><!-- Tab 1: Overview -->
+    <div id="tab-overview" class="tab-content active space-y-6">
+     <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="chart-container rounded-2xl p-4 sm:p-6">
+       <h3 class="text-lg sm:text-xl font-semibold text-white mb-4">Penduduk per Kecamatan</h3>
+       <div class="h-64 sm:h-80">
+        <canvas id="populationByDistrictChart"></canvas>
+       </div>
+      </div>
+      <div class="chart-container rounded-2xl p-4 sm:p-6">
+       <h3 class="text-lg sm:text-xl font-semibold text-white mb-4">Piramida Penduduk</h3>
+       <div class="h-64 sm:h-80">
+        <canvas id="pyramidChart"></canvas>
+       </div>
+      </div>
+     </section>
+    </div><!-- Tab 2: Marital Status -->
+    <div id="tab-marital" class="tab-content space-y-6">
+     <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="chart-container rounded-2xl p-4 sm:p-6">
+       <h3 class="text-lg font-semibold text-white mb-4">Status Perkawinan</h3>
+       <div class="h-72">
+        <canvas id="maritalStatusChart"></canvas>
+       </div>
+      </div>
+      <div class="chart-container rounded-2xl p-4 sm:p-6">
+       <h3 class="text-lg font-semibold text-white mb-4">Perbandingan Gender</h3>
+       <div class="h-72">
+        <canvas id="maritalGenderChart"></canvas>
+       </div>
+      </div>
+     </section>
+    </div><!-- Tab 3: Education -->
+    <div id="tab-education" class="tab-content space-y-6">
+     <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="chart-container rounded-2xl p-4 sm:p-6">
+       <h3 class="text-lg font-semibold text-white mb-4">Distribusi Pendidikan</h3>
+       <div class="h-80">
+        <canvas id="educationChart"></canvas>
+       </div>
+      </div>
+      <div class="chart-container rounded-2xl p-4 sm:p-6">
+       <h3 class="text-lg font-semibold text-white mb-4">Perbandingan Gender</h3>
+       <div class="h-80">
+        <canvas id="educationGenderChart"></canvas>
+       </div>
+      </div>
+     </section>
+    </div><!-- Tab 4: Employment -->
+    <div id="tab-employment" class="tab-content space-y-6">
+     <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="chart-container rounded-2xl p-4 sm:p-6">
+       <h3 class="text-lg font-semibold text-white mb-4">Jenis Pekerjaan Utama</h3>
+       <div class="h-80">
+        <canvas id="employmentChart"></canvas>
+       </div>
+      </div>
+      <div class="space-y-4">
+       <div class="chart-container rounded-2xl p-4">
+        <h4 class="text-sm font-semibold text-white mb-3">Top 5 Pekerjaan</h4>
+        <div class="space-y-2">
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-sm">Petani/Pekebun</span> <span class="font-bold text-green-400">18,581</span>
+         </div>
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-sm">Wiraswasta</span> <span class="font-bold text-blue-400">3,153</span>
+         </div>
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-sm">Belum/Tdk Kerja</span> <span class="font-bold text-red-400">3,816</span>
+         </div>
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-sm">Nelayan</span> <span class="font-bold text-cyan-400">2,276</span>
+         </div>
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-sm">PNS</span> <span class="font-bold text-indigo-400">1,549</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Tab 5: Religion -->
+    <div id="tab-religion" class="tab-content space-y-6">
+     <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="chart-container rounded-2xl p-4 sm:p-6">
+       <h3 class="text-lg font-semibold text-white mb-4">Distribusi Agama</h3>
+       <div class="h-80">
+        <canvas id="religionChart"></canvas>
+       </div>
+      </div>
+      <div class="space-y-3">
+       <div class="chart-container rounded-2xl p-4">
+        <h4 class="text-sm font-semibold text-white mb-3">Detail Agama</h4>
+        <div class="space-y-2">
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-sm">Kristen</span> <span class="font-bold text-emerald-400">82,331 (61.32%)</span>
+         </div>
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-sm">Katholik</span> <span class="font-bold text-red-400">44,220 (32.92%)</span>
+         </div>
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-sm">Islam</span> <span class="font-bold text-blue-400">7,683 (5.72%)</span>
+         </div>
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-sm">Hindu</span> <span class="font-bold text-amber-400">40 (0.03%)</span>
+         </div>
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span class="text-sm">Buddha</span> <span class="font-bold text-yellow-400">17 (0.01%)</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Tab 6: Disability -->
+    <div id="tab-disability" class="tab-content space-y-6">
+     <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="chart-container rounded-2xl p-4 sm:p-6">
+       <h3 class="text-lg font-semibold text-white mb-4">Jenis Disabilitas</h3>
+       <div class="h-80">
+        <canvas id="disabilityChart"></canvas>
+       </div>
+      </div>
+      <div class="space-y-3">
+       <div class="chart-container rounded-2xl p-4">
+        <h4 class="text-sm font-semibold text-white mb-3">Total Disabilitas</h4>
+        <div class="text-3xl font-bold text-indigo-400 mb-3">
+         725 Orang
+        </div>
+        <div class="space-y-2 text-sm">
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Fisik</span> <span class="font-bold text-red-400">347 (47.87%)</span>
+         </div>
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Rungu/Wicara</span> <span class="font-bold text-blue-400">74 (10.21%)</span>
+         </div>
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Mental/Jiwa</span> <span class="font-bold text-purple-400">68 (9.38%)</span>
+         </div>
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Netra/Buta</span> <span class="font-bold text-amber-400">62 (8.55%)</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Tab 7: Household Head -->
+    <div id="tab-househead" class="tab-content space-y-6">
+     <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="chart-container rounded-2xl p-4 sm:p-6">
+       <h3 class="text-lg font-semibold text-white mb-4">Kepala KK menurut Status Kawin</h3>
+       <div class="h-80">
+        <canvas id="househeadMaritalChart"></canvas>
+       </div>
+      </div>
+      <div class="chart-container rounded-2xl p-4 sm:p-6">
+       <h3 class="text-lg font-semibold text-white mb-4">Kepala KK menurut Pekerjaan</h3>
+       <div class="h-80">
+        <canvas id="househeadJobChart"></canvas>
+       </div>
+      </div>
+     </section>
+     <section class="chart-container rounded-2xl p-4 sm:p-6">
+      <h3 class="text-lg font-semibold text-white mb-4">Kepala Keluarga menurut Kecamatan dan Jenis Kelamin</h3>
+      <div class="h-96">
+       <canvas id="househeadDistrictChart"></canvas>
+      </div>
+     </section>
+     <section class="chart-container rounded-2xl p-4 sm:p-6 overflow-x-auto">
+      <h3 class="text-lg font-semibold text-white mb-4">Detail Kepala KK per Kecamatan</h3>
+      <table class="w-full text-sm">
+       <thead>
+        <tr class="border-b border-slate-700">
+         <th class="text-left py-2 px-2 text-slate-400">Kecamatan</th>
+         <th class="text-right py-2 px-2 text-blue-400">Laki-laki</th>
+         <th class="text-right py-2 px-2 text-pink-400">Perempuan</th>
+         <th class="text-right py-2 px-2 text-slate-400">Total</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="table-row border-b border-slate-800">
+         <td class="py-2 px-2 font-semibold">Tanimbar Selatan</td>
+         <td class="text-right text-blue-400">9,474</td>
+         <td class="text-right text-pink-400">2,787</td>
+         <td class="text-right">12,261</td>
+        </tr>
+        <tr class="table-row border-b border-slate-800">
+         <td class="py-2 px-2">Selaru</td>
+         <td class="text-right text-blue-400">3,804</td>
+         <td class="text-right text-pink-400">932</td>
+         <td class="text-right">4,736</td>
+        </tr>
+        <tr class="table-row border-b border-slate-800">
+         <td class="py-2 px-2">Wer Tamrian</td>
+         <td class="text-right text-blue-400">2,909</td>
+         <td class="text-right text-pink-400">962</td>
+         <td class="text-right">3,871</td>
+        </tr>
+        <tr class="table-row border-b border-slate-800">
+         <td class="py-2 px-2">Wer Maktian</td>
+         <td class="text-right text-blue-400">3,353</td>
+         <td class="text-right text-pink-400">782</td>
+         <td class="text-right">4,135</td>
+        </tr>
+        <tr class="table-row border-b border-slate-800">
+         <td class="py-2 px-2">Tanimbar Utara</td>
+         <td class="text-right text-blue-400">3,598</td>
+         <td class="text-right text-pink-400">1,136</td>
+         <td class="text-right">4,734</td>
+        </tr>
+        <tr class="table-row border-b border-slate-800">
+         <td class="py-2 px-2">Fordata</td>
+         <td class="text-right text-blue-400">1,228</td>
+         <td class="text-right text-pink-400">370</td>
+         <td class="text-right">1,598</td>
+        </tr>
+        <tr class="table-row border-b border-slate-800">
+         <td class="py-2 px-2">Wuar Labobar</td>
+         <td class="text-right text-blue-400">2,046</td>
+         <td class="text-right text-pink-400">518</td>
+         <td class="text-right">2,564</td>
+        </tr>
+        <tr class="table-row border-b border-slate-800">
+         <td class="py-2 px-2">Kormomolin</td>
+         <td class="text-right text-blue-400">1,905</td>
+         <td class="text-right text-pink-400">589</td>
+         <td class="text-right">2,494</td>
+        </tr>
+        <tr class="table-row border-b border-slate-800">
+         <td class="py-2 px-2">Nirunmas</td>
+         <td class="text-right text-blue-400">2,190</td>
+         <td class="text-right text-pink-400">613</td>
+         <td class="text-right">2,803</td>
+        </tr>
+        <tr class="table-row border-b border-slate-800">
+         <td class="py-2 px-2">Molu Maru</td>
+         <td class="text-right text-blue-400">997</td>
+         <td class="text-right text-pink-400">208</td>
+         <td class="text-right">1,205</td>
+        </tr>
+        <tr class="bg-indigo-500/10 font-bold">
+         <td class="py-2 px-2">KEPULAUAN TANIMBAR</td>
+         <td class="text-right text-blue-400">31,504</td>
+         <td class="text-right text-pink-400">8,897</td>
+         <td class="text-right text-slate-300">40,401</td>
+        </tr>
+       </tbody>
+      </table>
+     </section>
+    </div><!-- Tab 8: Vital Statistics -->
+    <div id="tab-vital" class="tab-content space-y-6">
+     <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="chart-container rounded-2xl p-4 sm:p-6">
+       <h3 class="text-lg font-semibold text-white mb-4">Kelahiran vs Kematian per Kecamatan</h3>
+       <div class="h-80">
+        <canvas id="vitalTrendChart"></canvas>
+       </div>
+      </div>
+      <div class="space-y-4">
+       <div class="chart-container rounded-2xl p-4">
+        <h4 class="text-sm font-semibold text-white mb-3">Angka Vital Statistik</h4>
+        <div class="space-y-3">
+         <div class="flex justify-between items-center p-3 bg-emerald-500/10 rounded-lg"><span class="text-sm">Crude Birth Rate</span> <span class="font-bold text-emerald-400">5.46 per 1000</span>
+         </div>
+         <div class="flex justify-between items-center p-3 bg-red-500/10 rounded-lg"><span class="text-sm">Crude Death Rate</span> <span class="font-bold text-red-400">5.44 per 1000</span>
+         </div>
+         <div class="flex justify-between items-center p-3 bg-blue-500/10 rounded-lg"><span class="text-sm">General Fertility Rate</span> <span class="font-bold text-blue-400">20.17 per 1000</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Tab 9: Migration -->
+    <div id="tab-migration" class="tab-content space-y-6">
+     <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="chart-container rounded-2xl p-4 sm:p-6">
+       <h3 class="text-lg font-semibold text-white mb-4">Migrasi Keluar vs Masuk</h3>
+       <div class="h-80">
+        <canvas id="migrationChart"></canvas>
+       </div>
+      </div>
+      <div class="space-y-4">
+       <div class="chart-container rounded-2xl p-4">
+        <h4 class="text-sm font-semibold text-white mb-3">Ringkas Migrasi</h4>
+        <div class="space-y-2 text-sm">
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Kepindahan Keluar</span> <span class="font-bold text-red-400">8,033</span>
+         </div>
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Kedatangan Masuk</span> <span class="font-bold text-emerald-400">4,464</span>
+         </div>
+         <div class="flex justify-between p-2 bg-indigo-500/10 rounded mt-2"><span class="font-semibold">Net Migration</span> <span class="font-bold text-red-400">-3,569</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Tab 10: Kepemilikan Dokumen (Gabungan) -->
+    <div id="tab-documents" class="tab-content space-y-6"><!-- Sub-tab Navigation -->
+     <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-custom"><button class="subtab-button active" onclick="switchSubtab('identity')">🆔 Kartu Keluarga &amp; KTP</button> <button class="subtab-button" onclick="switchSubtab('kia')">👶 KIA Anak</button> <button class="subtab-button" onclick="switchSubtab('birthcert')">🎓 Akta Kelahiran</button> <button class="subtab-button" onclick="switchSubtab('marriage')">💒 Akta Perkawinan</button>
+     </div><!-- Sub-tab 1: Kartu Keluarga & KTP -->
+     <div id="subtab-identity" class="subtab-content active space-y-6">
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+       <div class="chart-container rounded-2xl p-4 sm:p-6">
+        <h3 class="text-lg font-semibold text-white mb-4">Kepemilikan Kartu Keluarga</h3>
+        <div class="h-80">
+         <canvas id="identityKKChart"></canvas>
+        </div>
+       </div>
+       <div class="chart-container rounded-2xl p-4 sm:p-6">
+        <h3 class="text-lg font-semibold text-white mb-4">Kepemilikan KTP Elektronik</h3>
+        <div class="h-80">
+         <canvas id="identityKTPChart"></canvas>
+        </div>
+       </div>
+      </section>
+     </div><!-- Sub-tab 2: KIA Anak -->
+     <div id="subtab-kia" class="subtab-content space-y-6">
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+       <div class="chart-container rounded-2xl p-4 sm:p-6">
+        <h3 class="text-lg font-semibold text-white mb-4">Kepemilikan KIA per Kecamatan</h3>
+        <div class="h-80">
+         <canvas id="kiaDistributionChart"></canvas>
+        </div>
+       </div>
+       <div class="space-y-4">
+        <div class="chart-container rounded-2xl p-4">
+         <h4 class="text-sm font-semibold text-white mb-3">Ringkas KIA</h4>
+         <div class="space-y-2 text-sm">
+          <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Total Wajib KIA</span> <span class="font-bold text-blue-400">42,576</span>
+          </div>
+          <div class="flex justify-between p-2 bg-emerald-500/10 rounded"><span>Sudah Miliki</span> <span class="font-bold text-emerald-400">10,010 (23.51%)</span>
+          </div>
+          <div class="flex justify-between p-2 bg-orange-500/10 rounded"><span>Belum Miliki</span> <span class="font-bold text-orange-400">32,566 (76.49%)</span>
+          </div>
+         </div>
+        </div>
+        <div class="chart-container rounded-2xl p-4">
+         <h4 class="text-sm font-semibold text-white mb-3">Top Kecamatan KIA</h4>
+         <div class="space-y-2 text-sm">
+          <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Kormomolin</span> <span class="font-bold text-green-400">50.38%</span>
+          </div>
+          <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Wer Tamrian</span> <span class="font-bold text-blue-400">32.70%</span>
+          </div>
+          <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Fordata</span> <span class="font-bold text-indigo-400">29.13%</span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </section>
+      <section class="chart-container rounded-2xl p-4 sm:p-6 overflow-x-auto">
+       <h3 class="text-lg font-semibold text-white mb-4">Detail KIA per Kecamatan</h3>
+       <table class="w-full text-sm">
+        <thead>
+         <tr class="border-b border-slate-700">
+          <th class="text-left py-2 px-2 text-slate-400">Kecamatan</th>
+          <th class="text-right py-2 px-2 text-slate-400">Wajib</th>
+          <th class="text-right py-2 px-2 text-emerald-400">Miliki</th>
+          <th class="text-right py-2 px-2 text-orange-400">%</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Tanimbar Selatan</td>
+          <td class="text-right">12,586</td>
+          <td class="text-right">3,245</td>
+          <td class="text-right text-orange-400 font-semibold">25.78%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Selaru</td>
+          <td class="text-right">4,779</td>
+          <td class="text-right">693</td>
+          <td class="text-right text-red-400 font-semibold">14.50%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800 bg-green-500/10">
+          <td class="py-2 px-2 font-semibold">Kormomolin</td>
+          <td class="text-right">2,620</td>
+          <td class="text-right">1,320</td>
+          <td class="text-right text-green-400 font-bold">50.38%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Fordata</td>
+          <td class="text-right">1,538</td>
+          <td class="text-right">448</td>
+          <td class="text-right font-semibold">29.13%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Wer Tamrian</td>
+          <td class="text-right">3,917</td>
+          <td class="text-right">1,281</td>
+          <td class="text-right font-semibold">32.70%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Tanimbar Utara</td>
+          <td class="text-right">4,704</td>
+          <td class="text-right">1,140</td>
+          <td class="text-right font-semibold">24.23%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Nirunmas</td>
+          <td class="text-right">2,806</td>
+          <td class="text-right">714</td>
+          <td class="text-right font-semibold">25.45%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Wuar Labobar</td>
+          <td class="text-right">3,434</td>
+          <td class="text-right">459</td>
+          <td class="text-right text-red-400 font-semibold">13.37%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Wer Maktian</td>
+          <td class="text-right">4,698</td>
+          <td class="text-right">378</td>
+          <td class="text-right text-red-400 font-semibold">8.05%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Molu Maru</td>
+          <td class="text-right">1,494</td>
+          <td class="text-right">332</td>
+          <td class="text-right font-semibold">22.22%</td>
+         </tr>
+         <tr class="bg-indigo-500/10 font-bold">
+          <td class="py-2 px-2">TOTAL</td>
+          <td class="text-right text-blue-400">42,576</td>
+          <td class="text-right text-emerald-400">10,010</td>
+          <td class="text-right text-orange-400">23.51%</td>
+         </tr>
+        </tbody>
+       </table>
+      </section>
+     </div><!-- Sub-tab 3: Akta Kelahiran -->
+     <div id="subtab-birthcert" class="subtab-content space-y-6">
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+       <div class="chart-container rounded-2xl p-4">
+        <h4 class="text-sm font-semibold text-white mb-3">Akta 0-5 Tahun</h4>
+        <div class="h-64">
+         <canvas id="birthCert05Chart"></canvas>
+        </div>
+       </div>
+       <div class="chart-container rounded-2xl p-4">
+        <h4 class="text-sm font-semibold text-white mb-3">Akta 0-17 Tahun</h4>
+        <div class="h-64">
+         <canvas id="birthCert017Chart"></canvas>
+        </div>
+       </div>
+       <div class="chart-container rounded-2xl p-4">
+        <h4 class="text-sm font-semibold text-white mb-3">Akta Semua Penduduk</h4>
+        <div class="h-64">
+         <canvas id="birthCertAllChart"></canvas>
+        </div>
+       </div>
+      </section>
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+       <div class="chart-container rounded-2xl p-4">
+        <h4 class="text-sm font-semibold text-white mb-3">Akta 0-5 Tahun</h4>
+        <div class="space-y-2 text-sm">
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Total</span> <span class="font-bold text-blue-400">11,745</span>
+         </div>
+         <div class="flex justify-between p-2 bg-emerald-500/10 rounded"><span>Miliki Akta</span> <span class="font-bold text-emerald-400">11,437 (97.38%)</span>
+         </div>
+         <div class="flex justify-between p-2 bg-orange-500/10 rounded"><span>Belum</span> <span class="font-bold text-orange-400">308 (2.62%)</span>
+         </div>
+        </div>
+       </div>
+       <div class="chart-container rounded-2xl p-4">
+        <h4 class="text-sm font-semibold text-white mb-3">Akta 0-17 Tahun</h4>
+        <div class="space-y-2 text-sm">
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Total</span> <span class="font-bold text-blue-400">45,633</span>
+         </div>
+         <div class="flex justify-between p-2 bg-emerald-500/10 rounded"><span>Miliki Akta</span> <span class="font-bold text-emerald-400">45,105 (98.84%)</span>
+         </div>
+         <div class="flex justify-between p-2 bg-orange-500/10 rounded"><span>Belum</span> <span class="font-bold text-orange-400">528 (1.16%)</span>
+         </div>
+        </div>
+       </div>
+       <div class="chart-container rounded-2xl p-4">
+        <h4 class="text-sm font-semibold text-white mb-3">Akta Semua Penduduk</h4>
+        <div class="space-y-2 text-sm">
+         <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Total</span> <span class="font-bold text-blue-400">134,293</span>
+         </div>
+         <div class="flex justify-between p-2 bg-emerald-500/10 rounded"><span>Miliki Akta</span> <span class="font-bold text-emerald-400">81,570 (60.74%)</span>
+         </div>
+         <div class="flex justify-between p-2 bg-orange-500/10 rounded"><span>Belum</span> <span class="font-bold text-orange-400">52,723 (39.26%)</span>
+         </div>
+        </div>
+       </div>
+      </section>
+      <section class="chart-container rounded-2xl p-4 sm:p-6 overflow-x-auto">
+       <h3 class="text-lg font-semibold text-white mb-4">Perbandingan Akta Kelahiran Semua Penduduk</h3>
+       <table class="w-full text-sm">
+        <thead>
+         <tr class="border-b border-slate-700">
+          <th class="text-left py-2 px-2 text-slate-400">Kecamatan</th>
+          <th class="text-right py-2 px-2 text-slate-400">Total</th>
+          <th class="text-right py-2 px-2 text-emerald-400">Miliki</th>
+          <th class="text-right py-2 px-2 text-emerald-400">%</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr class="table-row border-b border-slate-800 bg-emerald-500/10">
+          <td class="py-2 px-2 font-semibold">Kormomolin</td>
+          <td class="text-right">8,073</td>
+          <td class="text-right">6,094</td>
+          <td class="text-right text-emerald-400 font-bold">75.49%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Fordata</td>
+          <td class="text-right">5,142</td>
+          <td class="text-right">3,238</td>
+          <td class="text-right font-semibold">62.97%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Wuar Labobar</td>
+          <td class="text-right">9,572</td>
+          <td class="text-right">6,026</td>
+          <td class="text-right font-semibold">62.95%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Tanimbar Selatan</td>
+          <td class="text-right">40,253</td>
+          <td class="text-right">24,903</td>
+          <td class="text-right font-semibold">61.87%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Nirunmas</td>
+          <td class="text-right">8,922</td>
+          <td class="text-right">5,484</td>
+          <td class="text-right font-semibold">61.47%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Wer Tamrian</td>
+          <td class="text-right">12,478</td>
+          <td class="text-right">7,675</td>
+          <td class="text-right font-semibold">61.51%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Molu Maru</td>
+          <td class="text-right">4,219</td>
+          <td class="text-right">2,512</td>
+          <td class="text-right font-semibold">59.54%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Tanimbar Utara</td>
+          <td class="text-right">15,257</td>
+          <td class="text-right">8,756</td>
+          <td class="text-right font-semibold">57.39%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Wer Maktian</td>
+          <td class="text-right">14,524</td>
+          <td class="text-right">8,367</td>
+          <td class="text-right font-semibold">57.61%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Selaru</td>
+          <td class="text-right">15,853</td>
+          <td class="text-right">8,515</td>
+          <td class="text-right font-semibold">53.71%</td>
+         </tr>
+         <tr class="bg-indigo-500/10 font-bold">
+          <td class="py-2 px-2">TOTAL</td>
+          <td class="text-right text-blue-400">134,293</td>
+          <td class="text-right text-emerald-400">81,570</td>
+          <td class="text-right text-emerald-400">60.74%</td>
+         </tr>
+        </tbody>
+       </table>
+      </section>
+     </div><!-- Sub-tab 4: Akta Perkawinan -->
+     <div id="subtab-marriage" class="subtab-content space-y-6">
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+       <div class="chart-container rounded-2xl p-4 sm:p-6">
+        <h3 class="text-lg font-semibold text-white mb-4">Kepemilikan Akta Perkawinan</h3>
+        <div class="h-80">
+         <canvas id="marriageChart"></canvas>
+        </div>
+       </div>
+       <div class="space-y-4">
+        <div class="chart-container rounded-2xl p-4">
+         <h4 class="text-sm font-semibold text-white mb-3">Ringkas Akta Perkawinan</h4>
+         <div class="space-y-2 text-sm">
+          <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Total Kawin</span> <span class="font-bold text-blue-400">55,037</span>
+          </div>
+          <div class="flex justify-between p-2 bg-emerald-500/10 rounded"><span>Miliki Akta</span> <span class="font-bold text-emerald-400">39,295 (71.40%)</span>
+          </div>
+          <div class="flex justify-between p-2 bg-orange-500/10 rounded"><span>Belum Akta</span> <span class="font-bold text-orange-400">15,742 (28.60%)</span>
+          </div>
+         </div>
+        </div>
+        <div class="chart-container rounded-2xl p-4">
+         <h4 class="text-sm font-semibold text-white mb-3">Kecamatan Tertinggi</h4>
+         <div class="space-y-2 text-sm">
+          <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Fordata</span> <span class="font-bold text-green-400">79.46%</span>
+          </div>
+          <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Kormomolin</span> <span class="font-bold text-blue-400">78.87%</span>
+          </div>
+          <div class="flex justify-between p-2 bg-slate-800/50 rounded"><span>Tanimbar Selatan</span> <span class="font-bold text-indigo-400">74.46%</span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </section>
+      <section class="chart-container rounded-2xl p-4 sm:p-6 overflow-x-auto">
+       <h3 class="text-lg font-semibold text-white mb-4">Detail Akta Perkawinan per Kecamatan</h3>
+       <table class="w-full text-sm">
+        <thead>
+         <tr class="border-b border-slate-700">
+          <th class="text-left py-2 px-2 text-slate-400">Kecamatan</th>
+          <th class="text-right py-2 px-2 text-slate-400">Total Kawin</th>
+          <th class="text-right py-2 px-2 text-emerald-400">Miliki</th>
+          <th class="text-right py-2 px-2 text-emerald-400">%</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr class="table-row border-b border-slate-800 bg-green-500/10">
+          <td class="py-2 px-2 font-semibold">Fordata</td>
+          <td class="text-right">2,167</td>
+          <td class="text-right">1,722</td>
+          <td class="text-right text-green-400 font-bold">79.46%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800 bg-blue-500/10">
+          <td class="py-2 px-2 font-semibold">Kormomolin</td>
+          <td class="text-right">3,252</td>
+          <td class="text-right">2,565</td>
+          <td class="text-right text-blue-400 font-bold">78.87%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Tanimbar Selatan</td>
+          <td class="text-right">16,232</td>
+          <td class="text-right">12,086</td>
+          <td class="text-right font-semibold">74.46%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Nirunmas</td>
+          <td class="text-right">3,877</td>
+          <td class="text-right">2,882</td>
+          <td class="text-right font-semibold">74.34%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Tanimbar Utara</td>
+          <td class="text-right">6,263</td>
+          <td class="text-right">4,531</td>
+          <td class="text-right font-semibold">72.35%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Molu Maru</td>
+          <td class="text-right">1,767</td>
+          <td class="text-right">1,251</td>
+          <td class="text-right font-semibold">70.80%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Selaru</td>
+          <td class="text-right">6,837</td>
+          <td class="text-right">4,609</td>
+          <td class="text-right font-semibold">67.41%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Wer Tamrian</td>
+          <td class="text-right">5,051</td>
+          <td class="text-right">3,437</td>
+          <td class="text-right font-semibold">68.05%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800">
+          <td class="py-2 px-2">Wer Maktian</td>
+          <td class="text-right">5,970</td>
+          <td class="text-right">3,977</td>
+          <td class="text-right font-semibold">66.62%</td>
+         </tr>
+         <tr class="table-row border-b border-slate-800 bg-orange-500/10">
+          <td class="py-2 px-2 font-semibold">Wuar Labobar</td>
+          <td class="text-right">3,621</td>
+          <td class="text-right">2,235</td>
+          <td class="text-right text-orange-400 font-bold">61.72%</td>
+         </tr>
+         <tr class="bg-indigo-500/10 font-bold">
+          <td class="py-2 px-2">TOTAL</td>
+          <td class="text-right text-blue-400">55,037</td>
+          <td class="text-right text-emerald-400">39,295</td>
+          <td class="text-right text-emerald-400">71.40%</td>
+         </tr>
+        </tbody>
+       </table>
+      </section>
+     </div>
+    </div><!-- Footer -->
+    <footer class="card-glass rounded-2xl p-6 text-center">
+     <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-slate-400 text-sm"><span>📊 Dashboard Komprehensif Data Penduduk</span> <span class="hidden sm:inline">•</span> <span>28 Tabel Demografis, Sosial &amp; Dokumen Identitas</span>
+     </div>
+    </footer>
+   </main>
+  </div>
+  <script>
+    const defaultConfig = {
+      dashboard_title: 'Dashboard Data Penduduk',
+      subtitle_text: 'Kabupaten Kepulauan Tanimbar Tahun 2025'
+    };
+
+    let charts = {};
+
+    // Data
+    const districts = ['Tanimbar S', 'Selaru', 'Wer Tamrian', 'Wer Maktian', 'Tanimbar U', 'Fordata', 'Wuar L', 'Kormomolin', 'Nirunmas', 'Molu Maru'];
+    const malePopulation = [20174, 7936, 6213, 7397, 7550, 2545, 4916, 4060, 4404, 2119];
+    const femalePopulation = [20079, 7917, 6265, 7127, 7707, 2597, 4656, 4013, 4518, 2100];
+    const totalPopulation = [40253, 15853, 12478, 14524, 15257, 5142, 9572, 8073, 8922, 4219];
+    
+    const pyramidAgeGroups = ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '>75'];
+    const pyramidMale = [4710, 7014, 7256, 7617, 6304, 5295, 4347, 4310, 4105, 3665, 3264, 2515, 2081, 1962, 1396, 1473];
+    const pyramidFemale = [4281, 6453, 6830, 7357, 6442, 5418, 4358, 4420, 4224, 3879, 3128, 2478, 2274, 2159, 1530, 1748];
+
+    const maritalStatus = ['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati'];
+    const maritalValues = [73503, 55037, 307, 5446];
+    const maritalMale = [38432, 27319, 115, 1448];
+    const maritalFemale = [35071, 27718, 192, 3998];
+
+    const educationLevels = ['Tidak/Belum SK', 'Belum Tamat SD', 'Tamat SD', 'SMP', 'SMA', 'Diploma', 'S1', 'S2+'];
+    const educationValues = [21753, 19278, 23032, 21171, 39396, 2163, 7254, 246];
+
+    const employmentTop = ['Petani', 'Belum Kerja', 'Wiraswasta', 'Nelayan', 'PNS'];
+    const employmentValues = [18581, 3816, 3153, 2276, 1549];
+
+    const religionNames = ['Kristen', 'Katholik', 'Islam', 'Hindu', 'Buddha'];
+    const religionValues = [82331, 44220, 7683, 40, 17];
+
+    const disabilityTypes = ['Fisik', 'Rungu/Wicara', 'Mental', 'Netra/Buta', 'Fisik+Mental', 'Lainnya'];
+    const disabilityValues = [347, 74, 68, 62, 33, 53];
+
+    const househeadMaritalStatus = ['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati'];
+    const househeadMaritalMale = [2703, 27270, 113, 1418];
+    const househeadMaritalFemale = [2605, 2220, 186, 3886];
+
+    const househeadJobs = ['Belum/Tdk Kerja', 'Aparatur', 'Pengajar', 'Wiraswasta', 'Pertanian', 'Nelayan'];
+    const househeadJobValues = [5270, 2587, 731, 4950, 19136, 2959];
+
+    // Data Kepala KK per Kecamatan
+    const househeadDistricts = ['Tanimbar Selatan', 'Selaru', 'Wer Tamrian', 'Wer Maktian', 'Tanimbar Utara', 'Fordata', 'Wuar Labobar', 'Kormomolin', 'Nirunmas', 'Molu Maru'];
+    const househeadMale = [9474, 3804, 2909, 3353, 3598, 1228, 2046, 1905, 2190, 997];
+    const househeadFemale = [2787, 932, 962, 782, 1136, 370, 518, 589, 613, 208];
+
+    const vitalBirths = [249, 69, 69, 62, 65, 24, 35, 44, 74, 37];
+    const vitalDeaths = [252, 73, 94, 35, 79, 18, 49, 68, 31, 27];
+
+    const migrationOut = [2891, 840, 925, 595, 780, 436, 590, 473, 348, 155];
+    const migrationIn = [1845, 379, 444, 306, 425, 143, 394, 222, 241, 65];
+
+    const identityKKHave = [11849, 4451, 3707, 3838, 4468, 1529, 2397, 2413, 2668, 1119];
+    const identityKKNot = [429, 284, 171, 289, 260, 64, 165, 92, 140, 87];
+
+    const identityKTPHave = [26170, 10272, 7969, 8978, 9685, 3368, 5513, 5137, 5742, 2426];
+    const identityKTPNot = [1497, 804, 592, 849, 869, 236, 625, 316, 374, 299];
+
+    const kiaHave = [3245, 693, 1281, 378, 1140, 448, 459, 1320, 714, 332];
+    const kiaNot = [9341, 4086, 2636, 4320, 3564, 1090, 2975, 1300, 2092, 1162];
+
+    const chartColors = ['rgba(99, 102, 241, 0.8)', 'rgba(139, 92, 246, 0.8)', 'rgba(168, 85, 247, 0.8)', 'rgba(236, 72, 153, 0.8)', 'rgba(244, 114, 182, 0.8)'];
+
+    function initCharts() {
+      Chart.defaults.color = '#94a3b8';
+      Chart.defaults.borderColor = 'rgba(71, 85, 105, 0.3)';
+      Chart.defaults.font.family = 'Plus Jakarta Sans';
+
+      // Population by District
+      const ctx1 = document.getElementById('populationByDistrictChart').getContext('2d');
+      charts.populationByDistrict = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: districts,
+          datasets: [
+            { label: 'Laki-laki', data: malePopulation, backgroundColor: 'rgba(59, 130, 246, 0.8)', borderRadius: 4 },
+            { label: 'Perempuan', data: femalePopulation, backgroundColor: 'rgba(236, 72, 153, 0.8)', borderRadius: 4 }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true } },
+          scales: { x: { stacked: false }, y: { beginAtZero: true } }
+        }
+      });
+
+      // Pyramid
+      const ctx2 = document.getElementById('pyramidChart').getContext('2d');
+      charts.pyramid = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: pyramidAgeGroups,
+          datasets: [
+            { label: 'Laki-laki', data: pyramidMale.map(v => -v), backgroundColor: 'rgba(59, 130, 246, 0.8)', borderRadius: 2 },
+            { label: 'Perempuan', data: pyramidFemale, backgroundColor: 'rgba(236, 72, 153, 0.8)', borderRadius: 2 }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${Math.abs(ctx.raw).toLocaleString('id-ID')}` } } },
+          scales: { x: { stacked: false, ticks: { callback: v => Math.abs(v).toLocaleString('id-ID') } } }
+        }
+      });
+
+      // Marital Status
+      const ctx3 = document.getElementById('maritalStatusChart').getContext('2d');
+      charts.maritalStatus = new Chart(ctx3, {
+        type: 'doughnut',
+        data: {
+          labels: maritalStatus,
+          datasets: [{ data: maritalValues, backgroundColor: ['rgba(34, 197, 94, 0.8)', 'rgba(34, 211, 238, 0.8)', 'rgba(251, 146, 60, 0.8)', 'rgba(239, 68, 68, 0.8)'] }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+      });
+
+      // Marital Gender
+      const ctx4 = document.getElementById('maritalGenderChart').getContext('2d');
+      charts.maritalGender = new Chart(ctx4, {
+        type: 'bar',
+        data: {
+          labels: maritalStatus,
+          datasets: [
+            { label: 'Laki-laki', data: maritalMale, backgroundColor: 'rgba(59, 130, 246, 0.8)', borderRadius: 4 },
+            { label: 'Perempuan', data: maritalFemale, backgroundColor: 'rgba(236, 72, 153, 0.8)', borderRadius: 4 }
+          ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true } } }
+      });
+
+      // Education
+      const ctx5 = document.getElementById('educationChart').getContext('2d');
+      charts.education = new Chart(ctx5, {
+        type: 'bar',
+        data: {
+          labels: educationLevels,
+          datasets: [{ label: 'Jumlah', data: educationValues, backgroundColor: chartColors.concat(['rgba(34, 211, 238, 0.8)']) }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { maxRotation: 45, minRotation: 45, font: { size: 9 } } } } }
+      });
+
+      // Education Gender
+      const ctx6 = document.getElementById('educationGenderChart').getContext('2d');
+      charts.educationGender = new Chart(ctx6, {
+        type: 'bar',
+        data: {
+          labels: educationLevels,
+          datasets: [
+            { label: 'Laki-laki', data: [11322, 9917, 11237, 10268, 20657, 700, 3052, 161], backgroundColor: 'rgba(59, 130, 246, 0.8)', borderRadius: 2 },
+            { label: 'Perempuan', data: [10431, 9361, 11795, 10903, 18739, 1463, 4202, 85], backgroundColor: 'rgba(236, 72, 153, 0.8)', borderRadius: 2 }
+          ]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+      });
+
+      // Employment
+      const ctx7 = document.getElementById('employmentChart').getContext('2d');
+      charts.employment = new Chart(ctx7, {
+        type: 'bar',
+        data: {
+          labels: employmentTop,
+          datasets: [{ label: 'Jumlah', data: employmentValues, backgroundColor: chartColors }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } }
+      });
+
+      // Religion
+      const ctx8 = document.getElementById('religionChart').getContext('2d');
+      charts.religion = new Chart(ctx8, {
+        type: 'doughnut',
+        data: {
+          labels: religionNames,
+          datasets: [{ data: religionValues, backgroundColor: ['rgba(34, 197, 94, 0.8)', 'rgba(239, 68, 68, 0.8)', 'rgba(59, 130, 246, 0.8)', 'rgba(251, 146, 60, 0.8)', 'rgba(251, 191, 36, 0.8)'] }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+      });
+
+      // Disability
+      const ctx9 = document.getElementById('disabilityChart').getContext('2d');
+      charts.disability = new Chart(ctx9, {
+        type: 'bar',
+        data: {
+          labels: disabilityTypes,
+          datasets: [{ label: 'Jumlah', data: disabilityValues, backgroundColor: ['rgba(239, 68, 68, 0.8)', 'rgba(59, 130, 246, 0.8)', 'rgba(168, 85, 247, 0.8)', 'rgba(251, 146, 60, 0.8)', 'rgba(236, 72, 153, 0.8)', 'rgba(251, 191, 36, 0.8)'] }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { maxRotation: 45, minRotation: 45, font: { size: 9 } } } } }
+      });
+
+      // Househead Marital
+      const ctx10 = document.getElementById('househeadMaritalChart').getContext('2d');
+      charts.househeadMarital = new Chart(ctx10, {
+        type: 'bar',
+        data: {
+          labels: househeadMaritalStatus,
+          datasets: [
+            { label: 'Laki-laki', data: househeadMaritalMale, backgroundColor: 'rgba(59, 130, 246, 0.8)', borderRadius: 4 },
+            { label: 'Perempuan', data: househeadMaritalFemale, backgroundColor: 'rgba(236, 72, 153, 0.8)', borderRadius: 4 }
+          ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true } } }
+      });
+
+      // Househead Jobs
+      const ctx11 = document.getElementById('househeadJobChart').getContext('2d');
+      charts.househeadJob = new Chart(ctx11, {
+        type: 'bar',
+        data: {
+          labels: househeadJobs,
+          datasets: [{ label: 'Jumlah', data: househeadJobValues, backgroundColor: chartColors }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true } } }
+      });
+
+      // Househead District
+      const ctx12 = document.getElementById('househeadDistrictChart').getContext('2d');
+      charts.househeadDistrict = new Chart(ctx12, {
+        type: 'bar',
+        data: {
+          labels: househeadDistricts,
+          datasets: [
+            { label: 'Laki-laki', data: househeadMale, backgroundColor: 'rgba(59, 130, 246, 0.8)', borderRadius: 4 },
+            { label: 'Perempuan', data: househeadFemale, backgroundColor: 'rgba(236, 72, 153, 0.8)', borderRadius: 4 }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true } },
+          scales: { x: { stacked: false, ticks: { maxRotation: 45, minRotation: 45, font: { size: 9 } } }, y: { beginAtZero: true } }
+        }
+      });
+
+      // Vital Stats
+      const ctx13 = document.getElementById('vitalTrendChart').getContext('2d');
+      charts.vitalTrend = new Chart(ctx13, {
+        type: 'line',
+        data: {
+          labels: districts,
+          datasets: [
+            { label: 'Kelahiran', data: vitalBirths, borderColor: 'rgba(34, 197, 94, 1)', backgroundColor: 'rgba(34, 197, 94, 0.1)', tension: 0.4, fill: true },
+            { label: 'Kematian', data: vitalDeaths, borderColor: 'rgba(239, 68, 68, 1)', backgroundColor: 'rgba(239, 68, 68, 0.1)', tension: 0.4, fill: true }
+          ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true } }, scales: { y: { beginAtZero: true } } }
+      });
+
+      // Migration
+      const ctx14 = document.getElementById('migrationChart').getContext('2d');
+      charts.migration = new Chart(ctx14, {
+        type: 'line',
+        data: {
+          labels: districts,
+          datasets: [
+            { label: 'Keluar', data: migrationOut, borderColor: 'rgba(239, 68, 68, 1)', backgroundColor: 'rgba(239, 68, 68, 0.1)', tension: 0.4, fill: true },
+            { label: 'Masuk', data: migrationIn, borderColor: 'rgba(34, 197, 94, 1)', backgroundColor: 'rgba(34, 197, 94, 0.1)', tension: 0.4, fill: true }
+          ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true } }, scales: { y: { beginAtZero: true } } }
+      });
+
+      // Identity KK
+      const ctx15 = document.getElementById('identityKKChart').getContext('2d');
+      charts.identityKK = new Chart(ctx15, {
+        type: 'doughnut',
+        data: {
+          labels: ['Sudah Miliki', 'Belum Miliki'],
+          datasets: [{ data: [38439, 1981], backgroundColor: ['rgba(34, 197, 94, 0.8)', 'rgba(239, 68, 68, 0.8)'] }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+      });
+
+      // Identity KTP
+      const ctx16 = document.getElementById('identityKTPChart').getContext('2d');
+      charts.identityKTP = new Chart(ctx16, {
+        type: 'doughnut',
+        data: {
+          labels: ['Sudah Miliki', 'Belum Miliki'],
+          datasets: [{ data: [85260, 6461], backgroundColor: ['rgba(34, 197, 94, 0.8)', 'rgba(239, 68, 68, 0.8)'] }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+      });
+
+      // KIA Distribution
+      const ctx17 = document.getElementById('kiaDistributionChart').getContext('2d');
+      charts.kiaDistribution = new Chart(ctx17, {
+        type: 'bar',
+        data: {
+          labels: districts,
+          datasets: [
+            { label: 'Miliki KIA', data: kiaHave, backgroundColor: 'rgba(34, 197, 94, 0.8)', borderRadius: 4 },
+            { label: 'Belum Miliki', data: kiaNot, backgroundColor: 'rgba(239, 68, 68, 0.8)', borderRadius: 4 }
+          ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true } }, scales: { x: { stacked: true }, y: { stacked: true } } }
+      });
+
+      // Birth Certificate 0-5
+      const ctx18 = document.getElementById('birthCert05Chart').getContext('2d');
+      charts.birthCert05 = new Chart(ctx18, {
+        type: 'doughnut',
+        data: {
+          labels: ['Miliki Akta', 'Belum Akta'],
+          datasets: [{ data: [11437, 308], backgroundColor: ['rgba(34, 197, 94, 0.8)', 'rgba(239, 68, 68, 0.8)'] }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+      });
+
+      // Birth Certificate 0-17
+      const ctx19 = document.getElementById('birthCert017Chart').getContext('2d');
+      charts.birthCert017 = new Chart(ctx19, {
+        type: 'doughnut',
+        data: {
+          labels: ['Miliki Akta', 'Belum Akta'],
+          datasets: [{ data: [45105, 528], backgroundColor: ['rgba(34, 197, 94, 0.8)', 'rgba(239, 68, 68, 0.8)'] }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+      });
+
+      // Birth Certificate All
+      const ctx20 = document.getElementById('birthCertAllChart').getContext('2d');
+      charts.birthCertAll = new Chart(ctx20, {
+        type: 'doughnut',
+        data: {
+          labels: ['Miliki Akta', 'Belum Akta'],
+          datasets: [{ data: [81570, 52723], backgroundColor: ['rgba(34, 197, 94, 0.8)', 'rgba(239, 68, 68, 0.8)'] }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+      });
+
+      // Marriage
+      const ctx21 = document.getElementById('marriageChart').getContext('2d');
+      charts.marriage = new Chart(ctx21, {
+        type: 'doughnut',
+        data: {
+          labels: ['Miliki Akta', 'Belum Akta'],
+          datasets: [{ data: [39295, 15742], backgroundColor: ['rgba(34, 197, 94, 0.8)', 'rgba(239, 68, 68, 0.8)'] }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+      });
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+      document.getElementById('tab-' + tabName).classList.add('active');
+      event.target.classList.add('active');
+
+      if (tabName === 'documents') {
+        document.querySelectorAll('.subtab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.subtab-button').forEach(el => el.classList.remove('active'));
+        document.getElementById('subtab-identity').classList.add('active');
+        document.querySelectorAll('.subtab-button')[0].classList.add('active');
+      }
+
+      setTimeout(() => {
+        Object.values(charts).forEach(chart => chart?.resize());
+      }, 100);
+    }
+
+    function switchSubtab(subtabName) {
+      document.querySelectorAll('.subtab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.subtab-button').forEach(el => el.classList.remove('active'));
+      document.getElementById('subtab-' + subtabName).classList.add('active');
+      event.target.classList.add('active');
+
+      setTimeout(() => {
+        Object.values(charts).forEach(chart => chart?.resize());
+      }, 100);
+    }
+
+    async function onConfigChange(config) {
+      const titleEl = document.getElementById('dashboard-title');
+      const subtitleEl = document.getElementById('subtitle-text');
+      if (titleEl) titleEl.textContent = config.dashboard_title || defaultConfig.dashboard_title;
+      if (subtitleEl) subtitleEl.textContent = config.subtitle_text || defaultConfig.subtitle_text;
+    }
+
+    function mapToCapabilities(config) {
+      return { recolorables: [], borderables: [], fontEditable: undefined, fontSizeable: undefined };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['dashboard_title', config.dashboard_title || defaultConfig.dashboard_title],
+        ['subtitle_text', config.subtitle_text || defaultConfig.subtitle_text]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({ defaultConfig, onConfigChange, mapToCapabilities, mapToEditPanelValues });
+    }
+
+    initCharts();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cd0e55fb7c3a458',t:'MTc3MDk0OTc0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
